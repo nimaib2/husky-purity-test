@@ -1,7 +1,7 @@
 export const uwQuestions = [
   "Have you ever taken a nap in Odegaard Library?",
   "Have you walked through the Quad during cherry blossom  season?",
-  "Have you ever had class in Kane Hall?",
+  "Have you ever had class in Kane  Hall?",
   "Have you petted Dubs?",
   "Have you studied past midnight at an on-campus library?",
   "Have you ever gotten coffee from By George?",
