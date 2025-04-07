@@ -42,12 +42,12 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-rice-blue text-white">
+    <div className="min-h-screen bg-uw-purple text-white">
       <header className="py-8 text-center">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <GraduationCap size={48} className="text-rice-gold" />
-            <h1 className="text-5xl font-bold text-rice-gold">UW Purity Test</h1>
+            <GraduationCap size={48} className="text-uw-gold" />
+            <h1 className="text-5xl font-bold text-uw-gold">UW Purity Test</h1>
           </div>
           <p className="text-xl">
             Check all the boxes that apply to your UW experience
@@ -57,7 +57,7 @@ function App() {
 
       <main className="container mx-auto px-4 py-8 max-w-form">
         {!showResults ? (
-          <div className="bg-white text-rice-blue rounded p-8">
+          <div className="bg-white text-uw-purple rounded p-8">
             <div className="mb-8">
               <h2 className="text-2xl font-bold mb-4">Instructions</h2>
               <p className="text-lg">
@@ -78,7 +78,7 @@ function App() {
                     id={`question-${index}`}
                     checked={checkedItems.has(index)}
                     onChange={() => handleCheck(index)}
-                    className="mt-1 h-5 w-5 rounded border-gray-300 text-rice-blue focus:ring-rice-blue"
+                    className="mt-1 h-5 w-5 rounded border-gray-300 text-uw-purple focus:ring-uw-purple"
                   />
                   <label
                     htmlFor={`question-${index}`}
@@ -92,19 +92,19 @@ function App() {
 
             <button
               onClick={calculateScore}
-              className="mt-8 w-full bg-rice-blue text-white text-xl py-4 px-8 rounded font-bold hover:bg-opacity-90 transition-colors"
+              className="mt-8 w-full bg-uw-purple text-white text-xl py-4 px-8 rounded font-bold hover:bg-opacity-90 transition-colors"
             >
               Calculate My Score
             </button>
           </div>
         ) : (
-          <div className="bg-white text-rice-blue rounded p-8 text-center">
+          <div className="bg-white text-uw-purple rounded p-8 text-center">
             <h2 className="text-4xl font-bold mb-6">Your Score:</h2>
-            <div className="text-8xl font-bold text-rice-gold mb-8">{score}%</div>
+            <div className="text-8xl font-bold text-uw-gold mb-8">{score}%</div>
             <p className="text-2xl mb-8">{getScoreMessage()}</p>
             <button
               onClick={resetQuiz}
-              className="bg-rice-blue text-white text-xl py-4 px-8 rounded font-bold hover:bg-opacity-90 transition-colors"
+              className="bg-uw-purple text-white text-xl py-4 px-8 rounded font-bold hover:bg-opacity-90 transition-colors"
             >
               Take the Test Again
             </button>
@@ -112,7 +112,7 @@ function App() {
         )}
       </main>
 
-      <footer className="py-6 text-center text-rice-gold">
+      <footer className="py-6 text-center text-uw-gold">
         <div className="container mx-auto px-4">
           <p>© 2024 UW Purity Test - Inspired by the Rice Purity Test</p>
         </div>

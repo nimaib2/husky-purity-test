@@ -7,9 +7,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        rice: {
-          blue: '#003366',
-          gold: '#C6A567',
+        uw: {
+          purple: '#4B2E83',
+          gold: '#B7A57A',
         }
       },
       maxWidth: {
