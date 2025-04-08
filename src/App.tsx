@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { uwQuestions } from './data/questions';
 import { GraduationCap } from 'lucide-react';
+import { addScore, getUserScores } from './services/firebaseService';
 
 function App() {
   const [score, setScore] = useState<number | null>(null);
@@ -18,11 +19,25 @@ function App() {
     setCheckedItems(newCheckedItems);
   };
 
-  const calculateScore = () => {
+  const calculateScore = async () => {
     const uncheckedCount = uwQuestions.length - checkedItems.size;
     const calculatedScore = Math.round((uncheckedCount / uwQuestions.length) * 100);
-    setScore(calculatedScore);
-    setShowResults(true);
+    const randomUserId = Math.random().toString(36).substring(2, 15);
+    try {
+      await addScore(calculatedScore, randomUserId);
+      console.log(await getUserScores(randomUserId));
+      setScore(calculatedScore);
+      setShowResults(true);
+    } catch (error) {
+      console.error('Error saving score:', error);
+      if (error instanceof Error) {
+        console.error('Error details:', error.message);
+        console.error('Error stack:', error.stack);
+      }
+      // Still show the score even if saving fails
+      setScore(calculatedScore);
+      setShowResults(true);
+    }
   };
 
   const resetQuiz = () => {
