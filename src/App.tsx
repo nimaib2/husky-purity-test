@@ -7,6 +7,7 @@ function App() {
   const [score, setScore] = useState<number | null>(null);
   const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
   const [showResults, setShowResults] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleCheck = (index: number) => {
     const newCheckedItems = new Set(checkedItems);
@@ -23,6 +24,7 @@ function App() {
     const uncheckedCount = uwQuestions.length - checkedItems.size;
     const calculatedScore = Math.round((uncheckedCount / uwQuestions.length) * 100);
     const randomUserId = Math.random().toString(36).substring(2, 15);
+    setError(null); // Clear any previous errors
     try {
       await addScore(calculatedScore, randomUserId);
       console.log(await getUserScores(randomUserId));
@@ -30,10 +32,7 @@ function App() {
       setShowResults(true);
     } catch (error) {
       console.error('Error saving score:', error);
-      if (error instanceof Error) {
-        console.error('Error details:', error.message);
-        console.error('Error stack:', error.stack);
-      }
+      setError(error instanceof Error ? error.message : 'Failed to save score. Your score will still be displayed.');
       // Still show the score even if saving fails
       setScore(calculatedScore);
       setShowResults(true);
@@ -58,6 +57,11 @@ function App() {
 
   return (
     <div className="min-h-screen bg-uw-purple text-white">
+      {error && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+          <span className="block sm:inline">{error}</span>
+        </div>
+      )}
       <header className="py-8 text-center">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-center gap-3 mb-4">
