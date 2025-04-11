@@ -7,14 +7,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        uw: {
-          purple: '#4B2E83',
-          gold: '#B7A57A',
-        }
+        'uw': {
+          'purple': '#4B2E83',
+          'gold': '#B7A57A',
+        },
       },
       maxWidth: {
         'form': '800px',
-      }
+      },
     },
   },
   plugins: [],
