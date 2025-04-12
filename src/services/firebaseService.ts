@@ -50,3 +50,28 @@ export const getUserScores = async (userId: string) => {
     throw new Error(`Failed to fetch scores: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
 }; 
+
+export const getScorePercentile = async (score: number) => {
+  try {
+    const scoresRef = collection(db, 'Scores');
+    const scoresSnapshot = await getDocs(scoresRef);
+    
+    const allScores = scoresSnapshot.docs.map(doc => doc.data().score);
+    
+    let scoresBelow = 0
+
+    for(let i=0; i<allScores.length; i++){
+      if(allScores[i]<score){
+        scoresBelow++;
+      }
+    }
+    
+    const percentile = (scoresBelow / allScores.length) * 100;
+    
+    return percentile;
+    
+  } catch (error) {
+    console.error('Error calculating percentile:', error);
+    throw new Error(`Failed to calculate percentile: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+}

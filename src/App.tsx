@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { uwQuestions } from './data/questions';
 import { GraduationCap } from 'lucide-react';
-import { addScore, getUserScores } from './services/firebaseService';
+import { addScore, getScorePercentile, getUserScores } from './services/firebaseService';
 
 function App() {
   const [score, setScore] = useState<number | null>(null);
   const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
   const [showResults, setShowResults] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [scoreMessage, setScoreMessage] = useState<string>('');
 
   const handleCheck = (index: number) => {
     const newCheckedItems = new Set(checkedItems);
@@ -46,13 +47,22 @@ function App() {
     window.scrollTo(0, 0);
   };
 
+  useEffect(() => {
+    const updateScoreMessage = async () => {
+      if (score !== null) {
+        const percentile = await getScorePercentile(score);
+        if (percentile >= 20) {
+          setScoreMessage('You scored higher than ' + percentile.toFixed(2) + '% of Huskies.\n Here are the 3 most common experiences you haven\'t done yet:');
+        } else {
+          setScoreMessage('You only scored higher than ' + percentile + '% of Huskies, did you just get here?\n Here are the 3 most common experiences you haven\'t done yet:');
+        }
+      }
+    };
+    updateScoreMessage();
+  }, [score]);
+
   const getScoreMessage = () => {
-    if (score === null) return '';
-    if (score >= 90) return 'You\'re practically a UW virgin! Time to explore more of campus life!';
-    if (score >= 70) return 'You\'re getting there! Still lots of UW experiences to discover.';
-    if (score >= 50) return 'You\'re a typical Husky! You\'ve had your fair share of UW experiences.';
-    if (score >= 30) return 'You\'re a seasoned Husky! You\'ve really made the most of your time at UW.';
-    return 'You\'re a true UW legend! You\'ve done it all!';
+    return scoreMessage;
   };
 
   return (

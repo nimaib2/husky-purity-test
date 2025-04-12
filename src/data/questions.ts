@@ -84,7 +84,7 @@ export const uwQuestions = [
   "83. Had your clothes thrown out of the dryer?",
   "84. Gotten locked out of your room/lost your key?",
   "85. Got a noise complaint from the RA?",
-  "86. Couldn't get the TV in a lounge to work?",
+  "86. Had to pack in the Link like sardines because of a game?",
   "87. Caught a couple making out in a lounge?",
   "88. Been attacked by geese on the Quad?",
   "89. Gone to Aladdin's drunk?",
