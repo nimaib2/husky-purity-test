@@ -129,14 +129,24 @@ function App() {
         ) : (
           <div className="bg-white text-uw-purple rounded p-8 text-center">
             <h2 className="text-4xl font-bold mb-6">Your Score:</h2>
-            <div className="text-8xl font-bold text-uw-gold mb-8">{score}%</div>
+            <div className="text-8xl font-bold text-uw-gold mb-8">{score}</div>
             <p className="text-2xl mb-8">{getScoreMessage()}</p>
-            <button
-              onClick={resetQuiz}
-              className="bg-uw-purple text-white text-xl py-4 px-8 rounded font-bold hover:bg-opacity-90 transition-colors"
-            >
-              Take the Test Again
-            </button>
+            <div className="flex gap-4 justify-center">
+              <button
+                onClick={resetQuiz}
+                className="bg-uw-purple text-white text-xl py-4 px-8 rounded font-bold hover:bg-opacity-90 transition-colors"
+              >
+                Take the Test Again
+              </button>
+              <a 
+                href="https://forms.gle/9z6AyGJfxZHwq4GM9"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-uw-purple text-white text-xl py-4 px-8 rounded font-bold hover:bg-opacity-90 transition-colors"
+              >
+                Add/Remove Questions
+              </a>
+            </div>
           </div>
         )}
       </main>
