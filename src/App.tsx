@@ -15,7 +15,6 @@ function App() {
     if (newCheckedItems.has(index)) {
       newCheckedItems.delete(index);
     } else {
-      
       newCheckedItems.add(index);
     }
     setCheckedItems(newCheckedItems);
@@ -27,8 +26,7 @@ function App() {
     const randomUserId = Math.random().toString(36).substring(2, 15);
     setError(null); // Clear any previous errors
     try {
-      await addScore(calculatedScore, randomUserId);
-      console.log(await getUserScores(randomUserId));
+      await addScore(calculatedScore, randomUserId, Array.from(checkedItems));
       setScore(calculatedScore);
       setShowResults(true);
     } catch (error) {
