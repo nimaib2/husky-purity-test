@@ -50,9 +50,9 @@ function App() {
       if (score !== null) {
         const percentile = await getScorePercentile(score);
         if (percentile >= 20) {
-          setScoreMessage('You scored higher than ' + percentile.toFixed(2) + '% of Huskies.\n Here are the 3 most common experiences you haven\'t done yet:');
+          setScoreMessage('You scored lower than ' + percentile.toFixed(2) + '% of Huskies.\n Here are the 3 most common experiences you haven\'t done yet:');
         } else {
-          setScoreMessage('You only scored higher than ' + percentile + '% of Huskies, did you just get here?\n Here are the 3 most common experiences you haven\'t done yet:');
+          setScoreMessage('You only scored lower than ' + percentile + '% of Huskies, did you just get here?\n Here are the 3 most common experiences you haven\'t done yet:');
         }
       }
     };
@@ -90,7 +90,9 @@ function App() {
               <p className="text-lg">
                 The UW Purity Test measures your University of Washington experience.
                 The higher your score, the more "pure" or unexperienced you are in UW culture.
-                A lower score indicates you've had more UW experiences.
+                A lower score indicates you've had more UW experiences. This quiz and its creators are not affiliated
+                with the University of Washington. This is a completely anonymous quiz and your
+                answers will not be shared with anyone
               </p>
             </div>
 
