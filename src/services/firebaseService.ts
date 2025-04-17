@@ -12,6 +12,7 @@ import {
   updateDoc
 } from 'firebase/firestore';
 import { auth, db } from '../firebase';
+import { uwQuestions } from '../data/questions';
 
 interface ScoreData {
   score: number;
@@ -39,6 +40,39 @@ export const addScore = async (score: number, userId: string, checkedOff: number
     
     return docRef.id;
   } catch (error) {
+    console.error('Error adding score:', error);
+    throw new Error(`Failed to save score: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+};
+
+export const findTop3Questions = async (checkedOff: number[]) => {
+  try {
+    const statsRef = collection(db, 'Statistics');
+    const statsDoc = await getDocs(statsRef);
+    
+    if (statsDoc.empty) {
+      return []; // Return empty array if no statistics exist
+    }
+    
+    const statsData = statsDoc.docs[0].data();
+    // Convert questionCounts object to array of [index, count] pairs
+    const sortedQuestions = Object.entries(statsData.questionCounts)
+      .map(([index, count]) => ({ index: parseInt(index), count: count as number }))
+      .sort((a, b) => b.count - a.count); // Sort by count in descending order
+    
+    let topQuestions = [];
+    let questionsString="";
+    for(let i=0; i<sortedQuestions.length; i++){
+      if(topQuestions.length>=3){
+        break;
+      } else if(!checkedOff.includes(sortedQuestions[i].index)){
+        topQuestions.push(sortedQuestions[i].index);
+        questionsString+=(sortedQuestions[i].index+1)+". "+uwQuestions[sortedQuestions[i].index];
+      }
+    }
+
+    return questionsString;
+  } catch(error) {
     console.error('Error adding score:', error);
     throw new Error(`Failed to save score: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }

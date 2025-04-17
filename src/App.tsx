@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { uwQuestions } from './data/questions';
 import { GraduationCap } from 'lucide-react';
-import { addScore, getScorePercentile, getUserScores } from './services/firebaseService';
+import { addScore, findTop3Questions, getScorePercentile, getUserScores } from './services/firebaseService';
 
 function App() {
   const [score, setScore] = useState<number | null>(null);
@@ -9,6 +9,7 @@ function App() {
   const [showResults, setShowResults] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [scoreMessage, setScoreMessage] = useState<string>('');
+  const [topQuestions, setTopQuestions] = useState<string[]>([]);
 
   const handleCheck = (index: number) => {
     const newCheckedItems = new Set(checkedItems);
@@ -49,7 +50,7 @@ function App() {
     const updateScoreMessage = async () => {
       if (score !== null) {
         const percentile = await getScorePercentile(score);
-        if (percentile >= 20) {
+        if (percentile <= 80) {
           setScoreMessage('You scored lower than ' + percentile.toFixed(2) + '% of Huskies.\n Here are the 3 most common experiences you haven\'t done yet:');
         } else {
           setScoreMessage('You only scored lower than ' + percentile + '% of Huskies, did you just get here?\n Here are the 3 most common experiences you haven\'t done yet:');
@@ -58,6 +59,26 @@ function App() {
     };
     updateScoreMessage();
   }, [score]);
+
+  useEffect(() => {
+    const fetchTopQuestions = async () => {
+      try {
+        const questions = await findTop3Questions(Array.from(checkedItems));
+        if (Array.isArray(questions)) {
+          setTopQuestions(questions.map(q => q).join('\n').split('\n'));
+          console.log('Fetched questions:', questions);
+        } else {
+          console.log(questions);
+          setTopQuestions(questions.split('\n'));
+        }
+      } catch (error: any) {
+        console.error(error);
+        setTopQuestions([error.message]);
+      }
+    };
+
+    fetchTopQuestions();
+  }, [checkedItems]);
 
   const getScoreMessage = () => {
     return scoreMessage;
@@ -131,6 +152,12 @@ function App() {
             <h2 className="text-4xl font-bold mb-6">Your Score:</h2>
             <div className="text-8xl font-bold text-uw-gold mb-8">{score}</div>
             <p className="text-2xl mb-8">{getScoreMessage()}</p>
+            
+            <div className="mb-8">
+              <h3 className="text-2xl font-bold mb-4">Top Questions You Haven't Done:</h3>
+              <p className="text-lg whitespace-pre-line">{topQuestions.join('\n')}</p>
+            </div>
+
             <div className="flex gap-4 justify-center">
               <button
                 onClick={resetQuiz}
