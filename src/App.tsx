@@ -51,9 +51,9 @@ function App() {
       if (score !== null) {
         const percentile = await getScorePercentile(score);
         if (percentile <= 80) {
-          setScoreMessage('You scored lower than ' + percentile.toFixed(2) + '% of Huskies.\n Here are the 3 most common experiences you haven\'t done yet:');
+          setScoreMessage('You scored higher than ' + percentile.toFixed(2) + '% of Huskies, did you just get here?.\n');
         } else {
-          setScoreMessage('You only scored lower than ' + percentile + '% of Huskies, did you just get here?\n Here are the 3 most common experiences you haven\'t done yet:');
+          setScoreMessage('You scored higher than ' + percentile + '% of Huskies, you\'re on your way to becoming a seasoned Husky!\n');
         }
       }
     };
