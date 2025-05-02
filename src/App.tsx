@@ -51,7 +51,7 @@ function App() {
       if (score !== null) {
         const percentile = await getScorePercentile(score);
         if (percentile >= 80) {
-          setScoreMessage('You scored higher than ' + percentile.toFixed(2) + '% of Huskies, did you just get here?.\n');
+          setScoreMessage('You scored higher than ' + percentile.toFixed(2) + '% of Huskies, did you just get here?\n');
         } else {
           setScoreMessage('You scored higher than ' + percentile + '% of Huskies, you\'re on your way to becoming a seasoned Husky!\n');
         }
