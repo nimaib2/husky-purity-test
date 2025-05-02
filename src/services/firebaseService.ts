@@ -67,7 +67,7 @@ export const findTop3Questions = async (checkedOff: number[]) => {
         break;
       } else if(!checkedOff.includes(sortedQuestions[i].index)){
         topQuestions.push(sortedQuestions[i].index);
-        questionsString+=(sortedQuestions[i].index+1)+". "+uwQuestions[sortedQuestions[i].index];
+        questionsString+=uwQuestions[sortedQuestions[i].index]+"\n";
       }
     }
 

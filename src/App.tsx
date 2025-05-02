@@ -67,9 +67,11 @@ function App() {
         if (Array.isArray(questions)) {
           setTopQuestions(questions.map(q => q).join('\n').split('\n'));
           console.log('Fetched questions:', questions);
+          console.log(questions.length);
         } else {
           console.log(questions);
           setTopQuestions(questions.split('\n'));
+          console.log(questions.length);
         }
       } catch (error: any) {
         console.error(error);
@@ -155,7 +157,13 @@ function App() {
             
             <div className="mb-8">
               <h3 className="text-2xl font-bold mb-4">Top Questions You Haven't Done:</h3>
-              <p className="text-lg whitespace-pre-line">{topQuestions.join('\n')}</p>
+              {topQuestions.length > 0 ? (
+                <p className="text-lg whitespace-pre-line">
+                  {topQuestions.join('\n')}
+                </p>
+              ) : (
+                <p className="text-lg">No questions available.</p>
+              )}
             </div>
 
             <div className="flex gap-4 justify-center">
