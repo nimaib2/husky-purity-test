@@ -50,7 +50,7 @@ function App() {
     const updateScoreMessage = async () => {
       if (score !== null) {
         const percentile = await getScorePercentile(score);
-        if (percentile <= 80) {
+        if (percentile >= 80) {
           setScoreMessage('You scored higher than ' + percentile.toFixed(2) + '% of Huskies, did you just get here?.\n');
         } else {
           setScoreMessage('You scored higher than ' + percentile + '% of Huskies, you\'re on your way to becoming a seasoned Husky!\n');
@@ -113,7 +113,7 @@ function App() {
                 The higher your score, the more "pure" or unexperienced you are in UW culture.
                 A lower score indicates you've had more UW experiences. This quiz and its creators are not affiliated
                 with the University of Washington. This is a completely anonymous quiz and your
-                answers will not be shared with anyone
+                answers will not be shared with anyone.
               </p>
             </div>
 
